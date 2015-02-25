@@ -4,7 +4,7 @@ formvalidation-rails (0.6.1.1)
 Provides client side validations for forms with the http://formvalidation.io/ library.
 
 The original formvalidation repo can be found here: https://github.com/formvalidation/formvalidation.
-This is only a gem containing a release version (same version as original formvalidation) for easier use
+This is only a gem containing a release version for easier use.
 
 
 ### How to Use
