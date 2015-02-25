@@ -27,8 +27,10 @@ This is only a gem containing a release version (same version as original formva
 
 And if needed the extension (for html frameworks) and language packs you need:
 
-`//= require formvalidation/framework/bootstrap.min`
-`//= require formvalidation/language/de_DE.min`
+```
+//= require formvalidation/framework/bootstrap.min
+//= require formvalidation/language/de_DE.min
+```
 
 **Add into your application.css**
 
