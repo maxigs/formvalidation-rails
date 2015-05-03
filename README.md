@@ -29,7 +29,7 @@ And if needed the extension (for html frameworks) and language packs you need:
 
 ```
 //= require formvalidation/framework/bootstrap.min
-//= require formvalidation/language/de_DE.min
+//= require formvalidation/language/de_DE
 ```
 
 **Add into your application.css**
