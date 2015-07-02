@@ -2,7 +2,7 @@
  * FormValidation (http://formvalidation.io)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit and custom frameworks
  *
- * @version     v0.6.1, built on 2015-02-24 10:14:10 PM
+ * @version     v0.6.2-dev, built on 2015-03-13 8:15:45 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
  * @license     http://formvalidation.io/license/
@@ -51,6 +51,7 @@ if (typeof jQuery === 'undefined') {
         this.STATUS_VALIDATING    = 'VALIDATING';
         this.STATUS_INVALID       = 'INVALID';
         this.STATUS_VALID         = 'VALID';
+        this.STATUS_IGNORED       = 'IGNORED';
 
         // Determine the event that is fired when user change the field value
         // Most modern browsers supports input event except IE 7, 8.
@@ -129,7 +130,8 @@ if (typeof jQuery === 'undefined') {
                         fieldStatus:      this.$form.attr('data-' + ns + '-events-field-status'),
                         localeChanged:    this.$form.attr('data-' + ns + '-events-locale-changed'),
                         validatorError:   this.$form.attr('data-' + ns + '-events-validator-error'),
-                        validatorSuccess: this.$form.attr('data-' + ns + '-events-validator-success')
+                        validatorSuccess: this.$form.attr('data-' + ns + '-events-validator-success'),
+                        validatorIgnored: this.$form.attr('data-' + ns + '-events-validator-ignored')
                     },
                     excluded:      this.$form.attr('data-' + ns + '-excluded'),
                     icon: {
@@ -371,7 +373,6 @@ if (typeof jQuery === 'undefined') {
                 }
 
                 // Prepare the feedback icons
-                // Available from Bootstrap 3.1 (http://getbootstrap.com/css/#forms-control-validation)
                 if (this.options.fields[field].icon !== false && this.options.fields[field].icon !== 'false'
                     && this.options.icon
                     && this.options.icon.valid && this.options.icon.invalid && this.options.icon.validating
@@ -489,6 +490,13 @@ if (typeof jQuery === 'undefined') {
                 case (!!field && this.options.fields && this.options.fields[field] && (this.options.fields[field].excluded === 'false' || this.options.fields[field].excluded === false)):
                 case (excludedAttr === 'false'):
                     return false;
+
+                case (!!field && this.options.fields && this.options.fields[field] && 'function' === typeof this.options.fields[field].excluded):
+                    return this.options.fields[field].excluded.call(this, $field, this);
+
+                case (!!field && this.options.fields && this.options.fields[field] && 'string' === typeof this.options.fields[field].excluded):
+                case (excludedAttr):
+                    return FormValidation.Helper.call(this.options.fields[field].excluded, [$field, this]);
 
                 default:
                     if (this.options.excluded) {
@@ -814,6 +822,9 @@ if (typeof jQuery === 'undefined') {
                     case this.STATUS_VALID:
                         $field.trigger($.Event(this.options.events.validatorSuccess), data);
                         break;
+                    case this.STATUS_IGNORED:
+                        $field.trigger($.Event(this.options.events.validatorIgnored), data);
+                        break;
                     default:
                         break;
                 }
@@ -823,6 +834,7 @@ if (typeof jQuery === 'undefined') {
             counter[this.STATUS_VALIDATING]    = 0;
             counter[this.STATUS_INVALID]       = 0;
             counter[this.STATUS_VALID]         = 0;
+            counter[this.STATUS_IGNORED]       = 0;
 
             for (var v in validators) {
                 if (validators[v].enabled === false) {
@@ -836,7 +848,8 @@ if (typeof jQuery === 'undefined') {
                 }
             }
 
-            if (counter[this.STATUS_VALID] === numValidators) {
+            // The sum of valid fields now also include ignored fields
+            if (counter[this.STATUS_VALID] + counter[this.STATUS_IGNORED] === numValidators) {
                 // Remove from the list of invalid fields
                 this.$invalidFields = this.$invalidFields.not($field);
 
@@ -1062,7 +1075,7 @@ if (typeof jQuery === 'undefined') {
          *
          * @param {String|jQuery} field The field name or field element
          * @param {String} validatorName The validator name
-         * @returns {String} The status. Can be 'NOT_VALIDATED', 'VALIDATING', 'INVALID' or 'VALID'
+         * @returns {String} The status. Can be 'NOT_VALIDATED', 'VALIDATING', 'INVALID', 'VALID' or 'IGNORED'
          */
         getStatus: function(field, validatorName) {
             var ns = this._namespace;
@@ -1304,13 +1317,15 @@ if (typeof jQuery === 'undefined') {
                     .data(ns + '.messages')
                     .find('.' + that.options.err.clazz + '[data-' + ns + '-validator="' + validator + '"][data-' + ns + '-for="' + field + '"]').html(message);
             });
+
+            return this;
         },
 
         /**
          * Update all validating results of field
          *
          * @param {String|jQuery} field The field name or field element
-         * @param {String} status The status. Can be 'NOT_VALIDATED', 'VALIDATING', 'INVALID' or 'VALID'
+         * @param {String} status The status. Can be 'NOT_VALIDATED', 'VALIDATING', 'INVALID', 'VALID' or 'IGNORED'
          * @param {String} [validatorName] The validator name. If null, the method updates validity result for all validators
          * @returns {FormValidation.Base}
          */
@@ -1359,7 +1374,9 @@ if (typeof jQuery === 'undefined') {
                     container    = ('function' === typeof (this.options.fields[field].container || this.options.fields[field].err || this.options.err.container))
                                     ? (this.options.fields[field].container || this.options.fields[field].err || this.options.err.container).call(this, $field, this)
                                     : (this.options.fields[field].container || this.options.fields[field].err || this.options.err.container),
-                    isValidField = null;
+                    isValidField = null,
+                    isValidating,
+                    isNotValidated;
 
                 // Update status
                 if (validatorName) {
@@ -1395,35 +1412,46 @@ if (typeof jQuery === 'undefined') {
                         break;
 
                     case this.STATUS_VALID:
-                        var isValidating   = ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_VALIDATING +'"]').length > 0),
-                            isNotValidated = ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_NOT_VALIDATED +'"]').length > 0);
+                    case this.STATUS_IGNORED:       // Treat ignored fields like they are valid with some specialties
+                        isValidating   = ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_VALIDATING +'"]').length > 0);
+                        isNotValidated = ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_NOT_VALIDATED +'"]').length > 0);
 
                         // If the field is valid (passes all validators)
-                        isValidField = (isValidating || isNotValidated)     // There are some validators that have not done
-                                     ? null
-                                     : ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_VALID +'"]').length === $allErrors.length); // All validators are completed
+                        isValidField   = (isValidating || isNotValidated)     // There are some validators that have not done
+                                       ? null
+                                       : ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_VALID +'"]').length
+                                        + $allErrors.filter('[data-' + ns + '-result="' + this.STATUS_IGNORED +'"]').length === $allErrors.length); // All validators are completed
 
                         $field.removeClass(this.options.control.valid).removeClass(this.options.control.invalid);
 
                         if (isValidField === true) {
                             this.disableSubmitButtons(this.isValid() === false);
-                            $field.addClass(this.options.control.valid);
+                            if (status === this.STATUS_VALID) {
+                                $field.addClass(this.options.control.valid);
+                            }
                         } else if (isValidField === false) {
                             this.disableSubmitButtons(true);
-                            $field.addClass(this.options.control.invalid);
+                            if (status === this.STATUS_VALID) {
+                                $field.addClass(this.options.control.invalid);
+                            }
                         }
 
                         if ($icon) {
-                            $icon
-                                .removeClass(this.options.icon.invalid).removeClass(this.options.icon.validating).removeClass(this.options.icon.valid)
-                                .addClass(isValidField === null ? '' : (isValidField ? this.options.icon.valid
-                                                                                     : (isValidating ? this.options.icon.validating : this.options.icon.invalid)))
-                                .show();
+                            $icon.removeClass(this.options.icon.invalid).removeClass(this.options.icon.validating).removeClass(this.options.icon.valid);
+                            if (status === this.STATUS_VALID) {
+                                $icon.addClass(isValidField === null
+                                        ? '' : (isValidField ? this.options.icon.valid : (isValidating ? this.options.icon.validating : this.options.icon.invalid)))
+                                     .show();
+                            }
                         }
 
                         var isValidContainer = this.isValidContainer($parent);
                         if (isValidContainer !== null) {
-                            $parent.removeClass(this.options.row.valid).removeClass(this.options.row.invalid).addClass(isValidContainer ? this.options.row.valid : this.options.row.invalid);
+                            $parent.removeClass(this.options.row.valid).removeClass(this.options.row.invalid);
+
+                            if (status === this.STATUS_VALID || $allErrors.length > 1) {
+                                $parent.addClass(isValidContainer ? this.options.row.valid : this.options.row.invalid);
+                            }
                         }
                         break;
 
@@ -1560,24 +1588,28 @@ if (typeof jQuery === 'undefined') {
                                 that.updateMessage($f, v, response.message);
                             }
 
-                            that.updateStatus(updateAll ? $f.attr('data-' + ns + '-field') : $f, response.valid ? that.STATUS_VALID : that.STATUS_INVALID, v);
+                            that.updateStatus(updateAll ? $f.attr('data-' + ns + '-field') : $f,
+                                              response.valid === true ? that.STATUS_VALID : (response.valid === false ? that.STATUS_INVALID : that.STATUS_IGNORED),
+                                              v);
 
                             if (response.valid && that._submitIfValid === true) {
                                 // If a remote validator returns true and the form is ready to submit, then do it
                                 that._submit();
-                            } else if (!response.valid && !verbose) {
+                            } else if (response.valid === false && !verbose) {
                                 stop = true;
                             }
                         });
                     }
-                    // ... or object { valid: true/false, message: 'dynamic message', otherKey: value, ... }
+                    // ... or object { valid: true/false/null, message: 'dynamic message', otherKey: value, ... }
                     else if ('object' === typeof validateResult && validateResult.valid !== undefined) {
                         $field.data(ns + '.response.' + validatorName, validateResult);
                         if (validateResult.message) {
                             this.updateMessage(updateAll ? field : $field, validatorName, validateResult.message);
                         }
-                        this.updateStatus(updateAll ? field : $field, validateResult.valid ? this.STATUS_VALID : this.STATUS_INVALID, validatorName);
-                        if (!validateResult.valid && !verbose) {
+                        this.updateStatus(updateAll ? field : $field,
+                                          validateResult.valid === true ? this.STATUS_VALID : (validateResult.valid === false ? this.STATUS_INVALID : this.STATUS_IGNORED),
+                                          validatorName);
+                        if (validateResult.valid === false && !verbose) {
                             break;
                         }
                     }
@@ -1588,6 +1620,12 @@ if (typeof jQuery === 'undefined') {
                         if (!validateResult && !verbose) {
                             break;
                         }
+                    }
+                    // ... or null/undefined
+                    // to indicate that the field should be ignored for current validation
+                    else if (null === validateResult || undefined === validateResult) {
+                        $field.data(ns + '.response.' + validatorName, validateResult);
+                        this.updateStatus(updateAll ? field : $field, this.STATUS_IGNORED, validatorName);
                     }
                 }
             }
@@ -1632,7 +1670,7 @@ if (typeof jQuery === 'undefined') {
 
                 // Try to parse the options from HTML attributes
                 var opts = this._parseOptions($field);
-                opts = (opts === null) ? options : $.extend(true, options, opts);
+                opts = (opts === null) ? options : $.extend(true, opts, options);
 
                 this.options.fields[field] = $.extend(true, this.options.fields[field], opts);
 
@@ -1990,13 +2028,13 @@ if (typeof jQuery === 'undefined') {
                 }
             }
 
-            // Mark field as not validated yet
-            this.updateStatus(field, this.STATUS_NOT_VALIDATED);
-
             if (resetValue) {
                 var type = $fields.attr('type');
                 ('radio' === type || 'checkbox' === type) ? $fields.prop('checked', false).removeAttr('selected') : $fields.val('');
             }
+
+            // Mark field as not validated yet
+            this.updateStatus(field, this.STATUS_NOT_VALIDATED);
 
             return this;
         },
@@ -2163,7 +2201,8 @@ if (typeof jQuery === 'undefined') {
             fieldStatus: 'status.field.fv',
             localeChanged: 'changed.locale.fv',
             validatorError: 'err.validator.fv',
-            validatorSuccess: 'success.validator.fv'
+            validatorSuccess: 'success.validator.fv',
+            validatorIgnored: 'ignored.validator.fv'
         },
 
         // Indicate fields which won't be validated
@@ -2639,7 +2678,7 @@ if (typeof jQuery === 'undefined') {
 
             if (options.callback) {
                 var response = FormValidation.Helper.call(options.callback, [value, validator, $field]);
-                result = ('boolean' === typeof response) ? { valid: response } : response;
+                result = ('boolean' === typeof response || null === response) ? { valid: response } : response;
             }
 
             dfd.resolve($field, 'callback', result);
@@ -3267,7 +3306,9 @@ if (typeof jQuery === 'undefined') {
             // Determine the separator
             var separator = options.separator;
             if (!separator) {
-                separator = (date.indexOf('/') !== -1) ? '/' : ((date.indexOf('-') !== -1) ? '-' : null);
+                separator = (date.indexOf('/') !== -1)
+                            ? '/'
+                            : ((date.indexOf('-') !== -1) ? '-' : ((date.indexOf('.') !== -1) ? '.' : null));
             }
             if (separator === null || date.indexOf(separator) === -1) {
                 return {
@@ -4586,7 +4627,7 @@ if (typeof jQuery === 'undefined') {
         _br: function(value) {
             value = value.replace(/\D/g, '');
 
-            if (/^1{11}|2{11}|3{11}|4{11}|5{11}|6{11}|7{11}|8{11}|9{11}|0{11}$/.test(value)) {
+            if (!/^\d{11}$/.test(value) || /^1{11}|2{11}|3{11}|4{11}|5{11}|6{11}|7{11}|8{11}|9{11}|0{11}$/.test(value)) {
                 return false;
             }
 
@@ -6999,7 +7040,9 @@ if (typeof jQuery === 'undefined') {
 
                 xhr
                     .success(function(response) {
-                        response.valid = response[validKey] === true || response[validKey] === 'true';
+                        response.valid = (response[validKey] === true || response[validKey] === 'true')
+                                        ? true
+                                        : (response[validKey] === false || response[validKey] === 'false' ? false : null);
                         dfd.resolve($field, 'remote', response);
                     })
                     .error(function(response) {
@@ -8205,6 +8248,9 @@ if (typeof jQuery === 'undefined') {
                             sum += temp;
                         }
                         sum = 10 - sum % 10;
+                        if (sum === 10) {
+                            sum = 0;
+                        }
                         return (sum + '' === value.substr(8, 1) || 'JABCDEFGHI'[sum] === value.substr(8, 1));
                     }
 
