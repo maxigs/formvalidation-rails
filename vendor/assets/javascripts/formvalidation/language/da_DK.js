@@ -150,9 +150,11 @@
                     SK: 'Slovakiet',
                     SM: 'San Marino',
                     SN: 'Senegal',
+                    TL: 'Østtimor',
                     TN: 'Tunesien',
                     TR: 'Tyrkiet',
-                    VG: 'Britiske Jomfruøer'
+                    VG: 'Britiske Jomfruøer',
+                    XK: 'Kosovo'
                 }
             },
             id: {
@@ -259,6 +261,9 @@
                     US: 'USA',
                     VE: 'Venezuela'
                 }
+            },
+            promise: {
+                'default': 'Udfyld venligst dette felt med en gyldig værdi'
             },
             regexp: {
                 'default': 'Udfyld venligst dette felt med en værdi der matcher mønsteret'

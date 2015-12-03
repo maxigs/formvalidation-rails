@@ -150,9 +150,11 @@
                     SK: 'Slovakien',
                     SM: 'San Marino',
                     SN: 'Senegal',
+                    TL: 'Östtimor',
                     TN: 'Tunisien',
                     TR: 'Turkiet',
-                    VG: 'Brittiska Jungfruöarna'
+                    VG: 'Brittiska Jungfruöarna',
+                    XK: 'Republiken Kosovo'
                 }
             },
             id: {
@@ -259,6 +261,9 @@
                     US: 'USA',
                     VE: 'Venezuela'
                 }
+            },
+            promise: {
+                'default': 'Vänligen mata in ett giltigt värde'
             },
             regexp: {
                 'default': 'Vänligen mata in ett värde som matchar uttrycket'

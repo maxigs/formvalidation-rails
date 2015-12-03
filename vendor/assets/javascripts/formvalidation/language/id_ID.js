@@ -150,9 +150,11 @@
                     SK: 'Slovakia',
                     SM: 'San Marino',
                     SN: 'Senegal',
+                    TL: 'Timor Leste',
                     TN: 'Tunisia',
                     TR: 'Turki',
-                    VG: 'Virgin Islands, British'
+                    VG: 'Virgin Islands, British',
+                    XK: 'Kosovo'
                 }
             },
             id: {
@@ -259,6 +261,9 @@
                     US: 'Amerika Serikat',
                     VE: 'Venezuela'
                 }
+            },
+            promise: {
+                'default': 'Silahkan isi nilai yang valid'
             },
             regexp: {
                 'default': 'Silahkan isi nilai yang cocok dengan pola'

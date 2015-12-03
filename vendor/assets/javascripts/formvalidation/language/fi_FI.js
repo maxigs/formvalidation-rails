@@ -150,9 +150,11 @@
                     SK: 'Slovakia',
                     SM: 'San Marino',
                     SN: 'Senegal',
+                    TL: 'Itä-Timor',
                     TN: 'Tunisia',
                     TR: 'Turkki',
-                    VG: 'Neitsytsaaret, Brittien'
+                    VG: 'Neitsytsaaret, Brittien',
+                    XK: 'Kosovon tasavallan'
                 }
             },
             id: {
@@ -259,6 +261,9 @@
                     US: 'USA',
                     VE: 'Venezuela'
                 }
+            },
+            promise: {
+                'default': 'Ole hyvä anna kelvollinen arvo'
             },
             regexp: {
                 'default': 'Ole hyvä anna kaavan mukainen arvo'

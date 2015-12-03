@@ -150,9 +150,11 @@
                     SK: 'Eslovakia',
                     SM: 'San Marino',
                     SN: 'Senegal',
+                    TL: 'Ekialdeko Timor',
                     TN: 'Tunisia',
                     TR: 'Turkia',
-                    VG: 'Birjina Uharte Britainiar'
+                    VG: 'Birjina Uharte Britainiar',
+                    XK: 'Kosovoko Errepublika'
                 }
             },
             id: {
@@ -259,6 +261,9 @@
                     US: 'Estatu Batuak',
                     VE: 'Venezuela'
                 }
+            },
+            promise: {
+                'default': 'Mesedez sartu balore egoki bat'
             },
             regexp: {
                 'default': 'Mesedez, patroiarekin bat datorren balio bat sartu'

@@ -150,9 +150,11 @@
                     SK: 'Slovakia',
                     SM: 'San Marino',
                     SN: 'Senegal',
+                    TL: 'East Timor',
                     TN: 'Tunisia',
                     TR: 'Turkey',
-                    VG: 'Virgin Islands, British'
+                    VG: 'Virgin Islands, British',
+                    XK: 'Republic of Kosovo'
                 }
             },
             id: {
@@ -259,6 +261,9 @@
                     US: 'USA',
                     VE: 'Venezuela'
                 }
+            },
+            promise: {
+                'default': 'Please enter a valid value'
             },
             regexp: {
                 'default': 'Please enter a value matching the pattern'
