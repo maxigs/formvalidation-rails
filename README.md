@@ -6,6 +6,11 @@ Provides client side validations for forms with the http://formvalidation.io/ li
 The original formvalidation repo can be found here: https://github.com/formvalidation/formvalidation.
 This is only a gem containing a release version for easier use.
 
+### Important
+
+For commercial use a commercial license for formvalidation.io needs to be purchased at http://formvalidation.io/.
+This gem only provides a package for easier use with RubyOnRails but does not affect the original license of
+formvalidation.io.
 
 ### How to Use
 
@@ -35,11 +40,6 @@ And if needed the extension (for html frameworks) and language packs you need:
 **Add into your application.css**
 
 `*= require formvalidation.min`
-
-
-### License
-
-**Important** for commercial use a commercial license for formvalidation.io needs to be purchased at http://formvalidation.io/
 
 
 ### Credits
