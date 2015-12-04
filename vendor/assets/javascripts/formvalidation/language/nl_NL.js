@@ -150,9 +150,11 @@
                     SK: 'Slowakije',
                     SM: 'San Marino',
                     SN: 'Senegal',
+                    TL: 'Oost-Timor',
                     TN: 'Tunesië',
                     TR: 'Turkije',
-                    VG: 'Britse Maagdeneilanden'
+                    VG: 'Britse Maagdeneilanden',
+                    XK: 'Republiek Kosovo'
                 }
             },
             id: {
@@ -259,6 +261,9 @@
                     US: 'VS',
                     VE: 'Venezuela'
                 }
+            },
+            promise: {
+                'default': 'Voer een geldige waarde in'
             },
             regexp: {
                 'default': 'Voer een waarde in die overeenkomt met het patroon'

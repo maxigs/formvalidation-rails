@@ -150,9 +150,11 @@
                     SK: 'Slowakei',
                     SM: 'San Marino',
                     SN: 'Senegal',
+                    TL: 'Ost-Timor',
                     TN: 'Tunesien',
                     TR: 'Türkei',
-                    VG: 'Jungferninseln'
+                    VG: 'Jungferninseln',
+                    XK: 'Republik Kosovo'
                 }
             },
             id: {
@@ -259,6 +261,9 @@
                     US: 'Vereinigte Staaten von Amerika',
                     VE: 'Venezuela'
                 }
+            },
+            promise: {
+                'default': 'Bitte einen gültigen Wert eingeben'
             },
             regexp: {
                 'default': 'Bitte Wert eingeben, der der Maske entspricht'

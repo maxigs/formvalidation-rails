@@ -150,9 +150,11 @@
                     SK: 'Slovacia',
                     SM: 'San Marino',
                     SN: 'Senegal',
+                    TL: 'Timorul de Est',
                     TN: 'Tunisia',
                     TR: 'Turkey',
-                    VG: 'Insulele Virgin'
+                    VG: 'Insulele Virgin',
+                    XK: 'Republica Kosovo'
                 }
             },
             id: {
@@ -259,6 +261,9 @@
                     US: 'SUA',
                     VE: 'Venezuela'
                 }
+            },
+            promise: {
+                'default': 'Te rog introdu o valoare valida'
             },
             regexp: {
                 'default': 'Te rog sa introduci o valoare in formatul'

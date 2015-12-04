@@ -150,9 +150,11 @@
                     SK: 'Slovakya',
                     SM: 'San Marino',
                     SN: 'Senegal',
+                    TL: 'Doğu Timor',
                     TN: 'Tunus',
                     TR: 'Turkiye',
-                    VG: 'Virgin Adaları, İngiliz'
+                    VG: 'Virgin Adaları, İngiliz',
+                    XK: 'Kosova Cumhuriyeti'
                 }
             },
             id: {
@@ -259,6 +261,9 @@
                     US: 'Amerika',
                     VE: 'Venezüella'
                 }
+            },
+            promise: {
+                'default': 'Lütfen geçerli bir değer giriniz'
             },
             regexp: {
                 'default': 'Lütfen uyumlu bir değer giriniz'

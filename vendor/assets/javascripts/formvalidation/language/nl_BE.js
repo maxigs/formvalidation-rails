@@ -4,7 +4,7 @@
      * Translated by @dokterpasta. Improved by @jdt
      */
     FormValidation.I18n = $.extend(true, FormValidation.I18n, {
-        'be_NL': {
+        'nl_BE': {
             base64: {
                 'default': 'Geef een geldige base 64 geëncodeerde tekst in'
             },
@@ -150,9 +150,11 @@
                     SK: 'Slowakije',
                     SM: 'San Marino',
                     SN: 'Senegal',
+                    TL: 'Oost-Timor',
                     TN: 'Tunesië',
                     TR: 'Turkije',
-                    VG: 'Britse Maagdeneilanden'
+                    VG: 'Britse Maagdeneilanden',
+                    XK: 'Republiek Kosovo'
                 }
             },
             id: {
@@ -259,6 +261,9 @@
                     US: 'VS',
                     VE: 'Venezuela'
                 }
+            },
+            promise: {
+                'default': 'Geef een geldige waarde in'
             },
             regexp: {
                 'default': 'Geef een waarde in die overeenkomt met het patroon'

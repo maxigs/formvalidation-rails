@@ -150,9 +150,11 @@
                     SK: 'Szlovákiában',
                     SM: 'San Marinoban',
                     SN: 'Szenegálban', /* Special case */
+                    TL: 'Kelet-Timor',
                     TN: 'Tunéziában', /* Special case */
                     TR: 'Törökországban',
-                    VG: 'Britt Virgin szigeteken' /* Special case */
+                    VG: 'Britt Virgin szigeteken', /* Special case */
+                    XK: 'Koszovói Köztársaság'
                 }
             },
             id: {
@@ -259,6 +261,9 @@
                     US: 'az Egyesült Államokban',
                     VE: 'Venezuelában' /* Sepcial case */
                 }
+            },
+            promise: {
+                'default': 'Kérlek, hogy érvényes értéket adj meg'
             },
             regexp: {
                 'default': 'Kérlek, hogy a mintának megfelelő értéket adj meg'

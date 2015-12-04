@@ -150,9 +150,11 @@
                     SK: 'Slovačke',
                     SM: 'San Marina',
                     SN: 'Senegala',
+                    TL: 'Источни Тимор',
                     TN: 'Tunisa',
                     TR: 'Turske',
-                    VG: 'Britanskih Devičanskih Ostrva'
+                    VG: 'Britanskih Devičanskih Ostrva',
+                    XK: 'Република Косово'
                 }
             },
             id: {
@@ -259,6 +261,9 @@
                     US: 'Amerike',
                     VE: 'Venecuele'
                 }
+            },
+            promise: {
+                'default': 'Molimo da unesete važeću vrednost'
             },
             regexp: {
                 'default': 'Molimo da unesete vrednost koja se poklapa sa paternom'

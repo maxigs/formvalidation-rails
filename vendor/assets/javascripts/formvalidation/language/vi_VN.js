@@ -150,9 +150,11 @@
                     SK: 'Slovakia',
                     SM: 'San Marino',
                     SN: 'Senegal',
+                    TL: 'Đông Timor',
                     TN: 'Tunisia',
                     TR: 'Thổ Nhĩ Kỳ',
-                    VG: 'Đảo Virgin, Anh quốc'
+                    VG: 'Đảo Virgin, Anh quốc',
+                    XK: 'Kosovo'
                 }
             },
             id: {
@@ -259,6 +261,9 @@
                     US: 'Mỹ',
                     VE: 'Venezuela'
                 }
+            },
+            promise: {
+                'default': 'Vui lòng nhập giá trị hợp lệ'
             },
             regexp: {
                 'default': 'Vui lòng nhập giá trị thích hợp với biểu mẫu'

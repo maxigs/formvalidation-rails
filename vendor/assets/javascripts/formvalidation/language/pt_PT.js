@@ -150,9 +150,11 @@
                     SK: 'Eslováquia',
                     SM: 'San Marino',
                     SN: 'Senegal',
+                    TL: 'Timor Leste',
                     TN: 'Tunísia',
                     TR: 'Turquia',
-                    VG: 'Ilhas Virgens Britânicas'
+                    VG: 'Ilhas Virgens Britânicas',
+                    XK: 'República do Kosovo'
                 }
             },
             id: {
@@ -259,6 +261,9 @@
                     US: 'EUA',
                     VE: 'Venezuela'
                 }
+            },
+            promise: {
+                'default': 'Por favor insira um valor válido'
             },
             regexp: {
                 'default': 'Por favor insira um valor correspondente ao padrão'

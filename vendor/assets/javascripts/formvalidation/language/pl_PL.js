@@ -150,9 +150,11 @@
                     SK: 'Słowacja',
                     SM: 'San Marino',
                     SN: 'Senegal',
+                    TL: 'Timor Wschodni',
                     TN: 'Tunezja',
                     TR: 'Turcja',
-                    VG: 'Brytyjskie Wyspy Dziewicze'
+                    VG: 'Brytyjskie Wyspy Dziewicze',
+                    XK: 'Republika Kosowa'
                 }
             },
             id: {
@@ -259,6 +261,9 @@
                     US: 'USA',
                     VE: 'Wenezuela'
                 }
+            },
+            promise: {
+                'default': 'Wprowadź poprawną wartość'
             },
             regexp: {
                 'default': 'Wprowadź wartość pasującą do wzoru'

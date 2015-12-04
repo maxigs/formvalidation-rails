@@ -150,9 +150,11 @@
                     SK: 'Slovensko',
                     SM: 'San Marino',
                     SN: 'Senegal',
+                    TL: 'Východní Timor',
                     TN: 'Tunisko',
                     TR: 'Turecko',
-                    VG: 'Britské Panenské ostrovy'
+                    VG: 'Britské Panenské ostrovy',
+                    XK: 'Republic of Kosovo'
                 }
             },
             id: {
@@ -259,6 +261,9 @@
                     US: 'Spojené Státy Americké',
                     VE: 'Venezuelu'
                 }
+            },
+            promise: {
+                'default': 'Prosím zadejte správnou hodnotu'
             },
             regexp: {
                 'default': 'Prosím zadejte hodnotu splňující zadání'

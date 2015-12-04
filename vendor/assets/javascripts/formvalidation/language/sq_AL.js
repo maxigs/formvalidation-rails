@@ -150,9 +150,11 @@
                     SK: 'Sllovaki',
                     SM: 'San Marino',
                     SN: 'Senegal',
+                    TL: 'Timori Lindor',
                     TN: 'Tunizi',
                     TR: 'Turqi',
-                    VG: 'Ishujt Virxhin Britanikë'
+                    VG: 'Ishujt Virxhin Britanikë',
+                    XK: 'Republika e Kosovës'
                 }
             },
             id: {
@@ -259,6 +261,9 @@
                     US: 'SHBA',
                     VE: 'Venezuelë'
                 }
+            },
+            promise: {
+                'default': 'Ju lutem vendosni një vlerë të vlefshme'
             },
             regexp: {
                 'default': 'Ju lutem vendosni një vlerë që përputhet me modelin'
