@@ -3,7 +3,7 @@
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit and custom frameworks
  *
  * @author      https://twitter.com/formvalidation
- * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
+ * @copyright   (c) 2013 - 2016 Nguyen Huu Phuoc
  * @license     http://formvalidation.io/license/
  */
 

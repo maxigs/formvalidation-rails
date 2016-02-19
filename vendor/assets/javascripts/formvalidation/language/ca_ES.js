@@ -188,6 +188,7 @@
                     SK: 'Eslovàquia',
                     SM: 'San Marino',
                     TH: 'Tailàndia',
+                    TR: 'Turquia',
                     ZA: 'Sud-àfrica'
                 }
             },
