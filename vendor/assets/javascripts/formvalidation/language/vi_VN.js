@@ -188,6 +188,7 @@
                     SK: 'Slovakia',
                     SM: 'San Marino',
                     TH: 'Thái Lan',
+                    TR: 'Thổ Nhĩ Kỳ',
                     ZA: 'Nam Phi'
                 }
             },

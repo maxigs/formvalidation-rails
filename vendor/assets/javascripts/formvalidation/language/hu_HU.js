@@ -188,6 +188,7 @@
                     SK: 'Szlovákiában',
                     SM: 'San Marinoban',
                     TH: 'Thaiföldön',
+                    TR: 'Törökországban',
                     ZA: 'Dél-Afrikában'
                 }
             },

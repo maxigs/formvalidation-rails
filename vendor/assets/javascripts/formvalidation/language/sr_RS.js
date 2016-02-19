@@ -188,6 +188,7 @@
                     SK: 'Slovačke',
                     SM: 'San Marina',
                     TH: 'Tajlanda',
+                    TR: 'Turske',
                     ZA: 'Južne Afrike'
                 }
             },

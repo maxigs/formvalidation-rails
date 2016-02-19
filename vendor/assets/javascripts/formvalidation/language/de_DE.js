@@ -188,6 +188,7 @@
                     SK: 'Slowakei',
                     SM: 'San Marino',
                     TH: 'Thailand',
+                    TR: 'Türkei',
                     ZA: 'Südafrika'
                 }
             },
@@ -351,7 +352,7 @@
             },
             zipCode: {
                 'default': 'Bitte gültige PLZ eingeben',
-                country: 'Bitte gültigen Postleitzahl für %s eingeben',
+                country: 'Bitte gültige Postleitzahl für %s eingeben',
                 countries: {
                     AT: 'Österreich',
                     BG: 'Bulgarien',
