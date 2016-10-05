@@ -8,34 +8,21 @@
  */
 
 /**
- * This class supports validating Bootstrap form (http://getbootstrap.com/)
+ * This class supports validating Bootstrap 4 alpha form (http://v4-alpha.getbootstrap.com/)
  */
 (function($) {
-    FormValidation.Framework.Bootstrap = function(element, options, namespace) {
+    FormValidation.Framework.Bootstrap4 = function(element, options, namespace) {
         options = $.extend(true, {
             button: {
                 selector: '[type="submit"]:not([formnovalidate])',
                 // The class of disabled button
-                // http://getbootstrap.com/css/#buttons-disabled
                 disabled: 'disabled'
             },
             err: {
-                // http://getbootstrap.com/css/#forms-help-text
-                clazz: 'help-block',
-                parent: '^(.*)col-(xs|sm|md|lg)-(offset-){0,1}[0-9]+(.*)$'
+                // http://v4-alpha.getbootstrap.com/components/forms/#validation
+                clazz: 'form-control-feedback',
+                parent: '^(.*)(col|offset)-(xs|sm|md|lg)-[0-9]+(.*)$'
             },
-            // This feature requires Bootstrap v3.1.0 or later (http://getbootstrap.com/css/#forms-control-validation).
-            // Since Bootstrap doesn't provide any methods to know its version, this option cannot be on/off automatically.
-            // In other word, to use this feature you have to upgrade your Bootstrap to v3.1.0 or later.
-            //
-            // Examples:
-            // - Use Glyphicons icons:
-            //  icon: {
-            //      valid: 'glyphicon glyphicon-ok',
-            //      invalid: 'glyphicon glyphicon-remove',
-            //      validating: 'glyphicon glyphicon-refresh',
-            //      feedback: 'form-control-feedback'
-            //  }
             // - Use FontAwesome icons:
             //  icon: {
             //      valid: 'fa fa-check',
@@ -47,22 +34,22 @@
                 valid: null,
                 invalid: null,
                 validating: null,
-                feedback: 'form-control-feedback'
+                feedback: 'fv-control-feedback'
             },
             row: {
                 // By default, each field is placed inside the <div class="form-group"></div>
-                // http://getbootstrap.com/css/#forms
+                // http://v4-alpha.getbootstrap.com/components/forms/#form-groups
                 selector: '.form-group',
                 valid: 'has-success',
-                invalid: 'has-error',
-                feedback: 'has-feedback'
+                invalid: 'has-warning',
+                feedback: 'fv-has-feedback'
             }
         }, options);
 
         FormValidation.Base.apply(this, [element, options, namespace]);
     };
 
-    FormValidation.Framework.Bootstrap.prototype = $.extend({}, FormValidation.Base.prototype, {
+    FormValidation.Framework.Bootstrap4.prototype = $.extend({}, FormValidation.Base.prototype, {
         /**
          * Specific framework might need to adjust the icon position
          *
@@ -80,9 +67,9 @@
             // so when clicking the icon, it doesn't effect to the checkbox/radio element
             if ('checkbox' === type || 'radio' === type) {
                 var $fieldParent = $field.parent();
-                if ($fieldParent.hasClass(type)) {
+                if ($fieldParent.hasClass('form-check')) {
                     $icon.insertAfter($fieldParent);
-                } else if ($fieldParent.parent().hasClass(type)) {
+                } else if ($fieldParent.parent().hasClass('form-check')) {
                     $icon.insertAfter($fieldParent.parent());
                 }
             }
@@ -118,7 +105,7 @@
                                 container: 'body',
                                 content: message,
                                 html: true,
-                                placement: 'auto top',
+                                placement: 'top',
                                 trigger: 'hover click'
                             });
                         break;
@@ -131,11 +118,11 @@
                                 'cursor': 'pointer',
                                 'pointer-events': 'auto'
                             })
-                            .tooltip('destroy')
+                            .tooltip('dispose')
                             .tooltip({
                                 container: 'body',
                                 html: true,
-                                placement: 'auto top',
+                                placement: 'top',
                                 title: message
                             });
                         break;
@@ -171,7 +158,7 @@
                                 'cursor': '',
                                 'pointer-events': 'none'
                             })
-                            .tooltip('destroy');
+                            .tooltip('dispose');
                         break;
                 }
             }
@@ -225,52 +212,4 @@
             }
         }
     });
-
-    /**
-     * Plugin definition
-     * Support backward
-     * @deprecated It will be removed soon. Instead of using $(form).bootstrapValidator(), use
-     *  $(form).formValidation({
-     *      framework: 'bootstrap'  // It's equivalent to use data-fv-framework="bootstrap" for <form>
-     *  });
-     */
-    $.fn.bootstrapValidator = function(option) {
-        var params = arguments;
-        return this.each(function() {
-            var $this   = $(this),
-                data    = $this.data('formValidation') || $this.data('bootstrapValidator'),
-                options = 'object' === typeof option && option;
-            if (!data) {
-                data = new FormValidation.Framework.Bootstrap(this, $.extend({}, {
-                    events: {
-                        // Support backward
-                        formInit: 'init.form.bv',
-                        formPreValidate: 'prevalidate.form.bv',
-                        formError: 'error.form.bv',
-                        formSuccess: 'success.form.bv',
-                        fieldAdded: 'added.field.bv',
-                        fieldRemoved: 'removed.field.bv',
-                        fieldInit: 'init.field.bv',
-                        fieldError: 'error.field.bv',
-                        fieldSuccess: 'success.field.bv',
-                        fieldStatus: 'status.field.bv',
-                        localeChanged: 'changed.locale.bv',
-                        validatorError: 'error.validator.bv',
-                        validatorSuccess: 'success.validator.bv'
-                    }
-                }, options), 'bv');
-
-                $this.addClass('fv-form-bootstrap')
-                     .data('formValidation', data)
-                     .data('bootstrapValidator', data);
-            }
-
-            // Allow to call plugin method
-            if ('string' === typeof option) {
-                data[option].apply(data, Array.prototype.slice.call(params, 1));
-            }
-        });
-    };
-
-    $.fn.bootstrapValidator.Constructor = FormValidation.Framework.Bootstrap;
 }(jQuery));

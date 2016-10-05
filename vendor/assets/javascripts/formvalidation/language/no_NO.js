@@ -235,7 +235,7 @@
                 'default': 'Vennligst fyll ut dette feltet'
             },
             numeric: {
-                'default': 'Vennligst fyll ut dette feltet med et gyldig flydende desimaltal'
+                'default': 'Vennligst fyll ut dette feltet med et gyldig flytende desimaltall'
             },
             phone: {
                 'default': 'Vennligst fyll ut dette feltet med et gyldig telefonnummer',
@@ -285,14 +285,14 @@
                 'default': 'Vennligst fyll ut dette feltet med et gyldig SIRET-nummer'
             },
             step: {
-                'default': 'Vennligst fyll ut dette feltet med et gyldig trin af %s'
+                'default': 'Vennligst fyll ut dette feltet med et gyldig trinn av %s'
             },
             stringCase: {
                 'default': 'Venligst fyll inn dette feltet kun med små bokstaver',
                 upper: 'Venligst fyll inn dette feltet kun med store bokstaver'
             },
             stringLength: {
-                'default': 'Vennligst fyll ut dette feltet med en verdi af gyldig længde',
+                'default': 'Vennligst fyll ut dette feltet med en verdi av gyldig lengde',
                 less: 'Vennligst fyll ut dette feltet med mindre enn %s tegn',
                 more: 'Vennligst fyll ut dette feltet med mer enn %s tegn',
                 between: 'Vennligst fyll ut dette feltet med en verdi mellom %s og %s tegn'

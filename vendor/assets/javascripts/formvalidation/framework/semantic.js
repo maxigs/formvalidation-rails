@@ -1,12 +1,12 @@
-/*!
+/**
  * FormValidation (http://formvalidation.io)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit and custom frameworks
  *
- * @version     v0.7.1, built on 2016-02-01 12:00:57 AM
  * @author      https://twitter.com/formvalidation
  * @copyright   (c) 2013 - 2016 Nguyen Huu Phuoc
  * @license     http://formvalidation.io/license/
  */
+
 /**
  * This class supports validating SemanticUI form (http://semantic-ui.com/)
  */
@@ -25,7 +25,7 @@
             },
             err: {
                 // http://semantic-ui.com/elements/label.html#pointing
-                clazz: 'ui red pointing label transition',
+                clazz: 'ui red pointing label',
                 parent: '^.*(field|column).*$'
             },
             // When using feedback icon, the input must place inside 'ui input icon' element
@@ -42,7 +42,7 @@
             },
             row: {
                 // http://semantic-ui.com/collections/form.html
-                selector: '.field',
+                selector: '.fields',
                 valid: 'fv-has-success',
                 invalid: 'error',
                 feedback: 'fv-has-feedback'
