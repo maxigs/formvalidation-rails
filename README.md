@@ -41,6 +41,10 @@ And if needed the extension (for html frameworks) and language packs you need:
 
 `*= require formvalidation.min`
 
+### Contributors
+
+Thank you to lorastus for always sending pull requests with the updates to the latest formvalidation :)
+
 
 ### Credits
 
