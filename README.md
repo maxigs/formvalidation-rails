@@ -1,4 +1,4 @@
-formvalidation-rails (0.7.1)
+formvalidation-rails (0.8.1)
 =================================
 
 Provides client side validations for forms with the http://formvalidation.io/ library.
